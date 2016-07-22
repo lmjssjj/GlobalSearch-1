@@ -13,8 +13,8 @@ import java.io.ByteArrayOutputStream;
 /**
  * Created by Administrator on 2016/7/19.
  */
-public class DrawableAndString {
-    public static synchronized Drawable byteToDrawable(String icon) {
+public class PhotoHandle {
+    public static synchronized Bitmap byteToBitmap(String icon) {
 
         byte[] img= Base64.decode(icon.getBytes(), Base64.DEFAULT);
         Bitmap bitmap;
@@ -22,10 +22,8 @@ public class DrawableAndString {
 
 
             bitmap = BitmapFactory.decodeByteArray(img,0, img.length);
-            @SuppressWarnings("deprecation")
-            Drawable drawable = new BitmapDrawable(bitmap);
 
-            return drawable;
+            return bitmap;
         }
         return null;
 

@@ -1,9 +1,16 @@
 package com.bbk.open.model;
 
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * Created by Administrator on 2016/7/19.
+ * 文件files
  */
+@DatabaseTable(tableName = "tb_infos")
 public class FileInfo {
+
     public static final int TYPE_APP = 1;
     public static final int TYPE_CONTACT = 2;
     public static final int TYPE_SMS = 3;
@@ -19,81 +26,89 @@ public class FileInfo {
     public static final int TYPE_WORD = 13;
     public static final int TYPE_PPT = 14;
 
-    private int _id;
-    private String name;
-    private String path;
-    private String searchInfo;
-    private String nosearchInfo;
-    private int type;
 
+    @DatabaseField(generatedId = true)
+    private int id;
+    @DatabaseField
+    private String name;//名称
+    @DatabaseField
+    private String path;//路径
+    @DatabaseField
+    private String searchInfo ;
+    @DatabaseField
+    private String noSearchInfo;
+    @DatabaseField
+    private int type;//类型
+
+    //空的构造方法
     public FileInfo() {
     }
 
-    public FileInfo(String name, String path, String searchInfo, String nosearchInfo, int type) {
+    public FileInfo( String name, String path, String searchInfo, String noSearchInfo, int type) {
         this.name = name;
         this.path = path;
         this.searchInfo = searchInfo;
-        this.nosearchInfo = nosearchInfo;
+        this.noSearchInfo = noSearchInfo;
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "fileInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", path='" + path + '\'' +
+                ", searchInfo='" + searchInfo + '\'' +
+                ", noSearchInfo='" + noSearchInfo + '\'' +
+                ", type=" + type +
+                '}';
+    }
 
-    public int get_id() {
-        return _id;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public String getSearchInfo() {
-        return searchInfo;
-    }
-
-    public String getNosearchInfo() {
-        return nosearchInfo;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void set_id(int _id) {
-        this._id = _id;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public void setPath(String path) {
         this.path = path;
     }
 
+    public String getSearchInfo() {
+        return searchInfo;
+    }
+
     public void setSearchInfo(String searchInfo) {
         this.searchInfo = searchInfo;
     }
 
-    public void setNosearchInfo(String nosearchInfo) {
-        this.nosearchInfo = nosearchInfo;
+    public String getNoSearchInfo() {
+        return noSearchInfo;
+    }
+
+    public void setNoSearchInfo(String noSearchInfo) {
+        this.noSearchInfo = noSearchInfo;
+    }
+
+    public int getType() {
+        return type;
     }
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "FileInfo{" +
-                "name='" + name + '\'' +
-                ", path='" + path + '\'' +
-                ", searchInfo='" + searchInfo + '\'' +
-                ", nosearchInfo='" + nosearchInfo + '\'' +
-                ", type=" + type +
-                '}';
     }
 }

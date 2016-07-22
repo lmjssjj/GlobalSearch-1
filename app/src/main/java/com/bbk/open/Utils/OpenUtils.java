@@ -81,7 +81,7 @@ public class OpenUtils {
     //Android获取一个用于打开短信的intent
     public static Intent getSmsFileIntent(String param) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("smsto:=" + param));
+        intent.setData(Uri.parse("smsto:" + param));
         return intent;
     }
 

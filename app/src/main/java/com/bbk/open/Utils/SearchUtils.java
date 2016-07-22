@@ -38,7 +38,7 @@ public class SearchUtils {
         List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentActivities(intent, 0);
         for (ResolveInfo resolveInfo : resolveInfos) {
             Drawable icon = resolveInfo.loadIcon(context.getPackageManager());
-            String iconstr = (DrawableAndString.drawableToByte(icon));
+            String iconstr = (PhotoHandle.drawableToByte(icon));
             String name = resolveInfo.loadLabel(context.getPackageManager()).toString();
             String path = resolveInfo.activityInfo.packageName;
             String nameToPinyin = PinyinHelper.convertToPinyinString(name, "", PinyinFormat.WITHOUT_TONE);
@@ -62,12 +62,12 @@ public class SearchUtils {
             String phoneNumber = "";
             int _id = cursor.getInt(0);
             String name = cursor.getString(1);
-            String nameToPinyin = PinyinHelper.convertToPinyinString(name, "", PinyinFormat.WITHOUT_TONE);
+//            String nameToPinyin = PinyinHelper.convertToPinyinString(name, "", PinyinFormat.WITHOUT_TONE);
             Cursor phoneNumberCursor = resolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[]{"data1"}, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "==" + _id, null, null);
             while (phoneNumberCursor.moveToNext()) {
                 phoneNumber = phoneNumber + " " + phoneNumberCursor.getString(0);
             }
-            FileInfo info = new FileInfo(name+"|"+nameToPinyin, _id + "", phoneNumber.trim(),"", FileInfo.TYPE_CONTACT);
+            FileInfo info = new FileInfo(name, _id + "", phoneNumber.trim(), "", FileInfo.TYPE_CONTACT);
             contactList.add(info);
             phoneNumberCursor.close();
         }
@@ -98,10 +98,10 @@ public class SearchUtils {
             Cursor cur = context.getContentResolver().query(personUri, new String[]{ContactsContract.PhoneLookup.DISPLAY_NAME}, null, null, null);
             if (cur.moveToFirst()) {
                 name = cur.getString(cur.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
-                cur.close();
-                FileInfo info = new FileInfo(name, path, path, body, FileInfo.TYPE_SMS);
-                smsList.add(info);
             }
+            FileInfo info = new FileInfo(name, path, path, body, FileInfo.TYPE_SMS);
+            smsList.add(info);
+            cur.close();
         }
         cursor.close();
         return smsList;
@@ -117,21 +117,21 @@ public class SearchUtils {
     public static List<FileInfo> SearchImages(Context context) {
         List<FileInfo> imageList = new ArrayList<>();
         ContentResolver resolver = context.getContentResolver();
-        Cursor thumbnailCursor = resolver.query(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, new String[]{MediaStore.Images.Thumbnails.IMAGE_ID, MediaStore.Images.Thumbnails.DATA}, null, null, null);
-        while (thumbnailCursor.moveToNext()) {
-            int _id = thumbnailCursor.getInt(0);
-            String thumbnailPath = thumbnailCursor.getString(1);
-            Cursor imageCursor = resolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA, MediaStore.Images.Media.DISPLAY_NAME}, MediaStore.Images.Media._ID + "=" + _id, null, null);
-            if (imageCursor != null) {
-                imageCursor.moveToFirst();
-                String imagePath = imageCursor.getString(1);
-                String name = imageCursor.getString(2);
-                FileInfo info = new FileInfo(name,imagePath,"",thumbnailPath,FileInfo.TYPE_IMAGE);
-                imageList.add(info);
-                imageCursor.close();
+        Cursor imageCursor = resolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA, MediaStore.Images.Media.DISPLAY_NAME}, null, null, null);
+        while (imageCursor.moveToNext()) {
+            int _id = imageCursor.getInt(0);
+            String imagePath = imageCursor.getString(1);
+            String name = imageCursor.getString(2);
+            String thumbnailPath = "";
+            Cursor thumbnailCursor = resolver.query(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, new String[]{MediaStore.Images.Thumbnails.IMAGE_ID, MediaStore.Images.Thumbnails.DATA}, MediaStore.Images.Thumbnails.IMAGE_ID + "=" + _id, null, null);
+            if (thumbnailCursor.moveToFirst()) {
+                thumbnailPath = thumbnailCursor.getString(1);
             }
+            FileInfo info = new FileInfo(name, imagePath, "", thumbnailPath, FileInfo.TYPE_IMAGE);
+            imageList.add(info);
+            thumbnailCursor.close();
         }
-        thumbnailCursor.close();
+        imageCursor.close();
         return imageList;
     }
 
@@ -153,7 +153,7 @@ public class SearchUtils {
             if (thumbnailsCursor != null) {
                 thumbnailsCursor.moveToFirst();
                 String thumbnailPath = thumbnailsCursor.getString(1);
-                FileInfo info = new FileInfo(name,videoPath,"",thumbnailPath,FileInfo.TYPE_VIDEO);
+                FileInfo info = new FileInfo(name, videoPath, "", thumbnailPath, FileInfo.TYPE_VIDEO);
                 videoList.add(info);
                 thumbnailsCursor.close();
             }
@@ -179,7 +179,7 @@ public class SearchUtils {
             String nameToPinyin = "";
             if (name != null) {
                 nameToPinyin = PinyinHelper.convertToPinyinString(name, "", PinyinFormat.WITHOUT_TONE);
-                FileInfo info = new FileInfo(name,path,nameToPinyin,"",FileInfo.TYPE_AUDIO);
+                FileInfo info = new FileInfo(name, path, nameToPinyin, "", FileInfo.TYPE_AUDIO);
                 audioList.add(info);
             }
         }
@@ -188,7 +188,7 @@ public class SearchUtils {
     }
 
     /**
-     * 搜索结果返回后缀名为zip，apk，txt，pdf，word，xml，html文件的集合，跟据type区分不同
+     * 搜索结果返回后缀名为zip，apk，txt，pdf，word，html，html文件的集合，跟据type区分不同
      *
      * @param context
      * @return
@@ -227,7 +227,7 @@ public class SearchUtils {
                     String size = cursor.getString(sizeindex);
                     int dot = path.lastIndexOf("/");
                     String name = path.substring(dot + 1);
-                    FileInfo info= new FileInfo(name,path,"","",ConvertUtil.convertType(name));
+                    FileInfo info = new FileInfo(name, path, "", "", ConvertUtil.convertType(name));
                     piecemealInfos.add(info);
                 } while (cursor.moveToNext());
             }
