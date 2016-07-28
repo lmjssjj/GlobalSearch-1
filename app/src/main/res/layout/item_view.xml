@@ -5,8 +5,8 @@
     android:padding="10dp"
     android:gravity="center_vertical"
     android:orientation="horizontal">
-    
-    <ImageView
+
+    <cn.carbs.android.avatarimageview.library.AvatarImageView
         android:id="@+id/imageview"
         android:layout_width="0dp"
         android:layout_height="40dp"
@@ -20,7 +20,6 @@
         android:textSize="15sp"
         android:layout_height="wrap_content"
         android:layout_weight="4"
-        android:text="微信"
         />
 
 </LinearLayout>

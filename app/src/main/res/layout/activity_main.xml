@@ -1,32 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_all"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorGray"
     android:orientation="vertical"
     tools:context="com.bbk.open.globlesearch.MainActivity">
-<View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:focusableInTouchMode="true"/>
-   <EditText
-       android:id="@+id/search_key"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_margin="10dp"
-       android:background="@drawable/shape"
-       android:drawableLeft="@drawable/search"
-       android:padding="4dp"
-       android:textSize="16sp"/>
 
-   <se.emilsjolander.stickylistheaders.StickyListHeadersListView
-       android:layout_marginTop="10dp"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:divider="#b1b1b1"
-       android:id="@+id/listview">
+    <LinearLayout
+        android:id="@+id/layout_search"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+    <EditText
+        android:id="@+id/tv_searchkey"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_weight="8"
+        android:textSize="12sp"
+        android:padding="3dp"
+        android:background="@drawable/shape"
+        android:drawableLeft="@drawable/search"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="@string/et_hint"
+        />
+        <Button
+            android:id="@+id/bt_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:text="@string/cacel"
+            android:background="@color/transparent"/>
 
-   </se.emilsjolander.stickylistheaders.StickyListHeadersListView>
+    </LinearLayout>
+
+
+    <com.lhh.apst.library.AdvancedPagerSlidingTabStrip
+        android:id="@+id/ta1bs"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        style="@style/pagertab_style"
+        android:fillViewport="false"/>
+
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpage1r"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
 
 
 </LinearLayout>

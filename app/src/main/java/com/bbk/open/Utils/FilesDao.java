@@ -51,17 +51,30 @@ public class FilesDao {
     /**
      * TODO 查询操作
      */
-    public List<FileInfo> qurry(String key) throws SQLException {
+    public List<FileInfo> qurry(String key,int type) throws SQLException {
         List<FileInfo> files=new ArrayList<FileInfo>();
         QueryBuilder builder = userDaoOpe.queryBuilder();
-        builder .where().like("name","%"+key+"%").or().like("searchInfo","%"+key+"%");
+        builder.orderBy("count",false).where().like("name","%"+key+"%").or().like("searchInfo","%"+key+"%").and().eq("type",type);
         files=builder.query();
         return files;
     }
 
-    public void delete() throws SQLException {
-        userDaoOpe.executeRaw("delete from tb_infos");
-        userDaoOpe.executeRaw("update sqlite_sequence set seq = 0 WHERE name = 'tb_infos'");
+
+    public List<FileInfo> qurryDoc(String key) throws SQLException {
+        List<FileInfo> files=new ArrayList<FileInfo>();
+        QueryBuilder builder = userDaoOpe.queryBuilder();
+        builder.orderBy("type",false).where().like("name","%"+key+"%").or().like("searchInfo","%"+key+"%").and().in("type",8,9,10,11,12);
+        files=builder.query();
+        return files;
     }
+
+    public void update(FileInfo file) {
+        try {
+            userDaoOpe.update(file);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

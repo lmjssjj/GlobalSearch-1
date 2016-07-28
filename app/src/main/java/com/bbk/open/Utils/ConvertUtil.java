@@ -11,9 +11,7 @@ public class ConvertUtil {
 
 
     public static int convertType(String name) {
-        if (name.contains("zip")) {
-            return FileInfo.TYPE_ARCHIVE;
-        } else if (name.contains("apk")) {
+        if (name.contains("apk")) {
             return FileInfo.TYPE_INSTALL;
         } else if (name.contains("txt")) {
             return FileInfo.TYPE_TXT;
@@ -23,8 +21,6 @@ public class ConvertUtil {
             return FileInfo.TYPE_PDF;
         } else if (name.contains("xls")) {
             return FileInfo.TYPE_XLS;
-        } else if (name.contains("html")) {
-            return FileInfo.TYPE_HTML;
         }
         return 0;
     }

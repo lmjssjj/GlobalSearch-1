@@ -18,33 +18,39 @@ public class FileInfo {
     public static final int TYPE_IMAGE = 5;
     public static final int TYPE_VIDEO = 6;
     public static final int TYPE_INSTALL = 7;
-    public static final int TYPE_ARCHIVE = 8;
-    public static final int TYPE_TXT = 9;
-    public static final int TYPE_XLS = 10;
-    public static final int TYPE_HTML = 11;
-    public static final int TYPE_PDF = 12;
-    public static final int TYPE_WORD = 13;
-    public static final int TYPE_PPT = 14;
+    public static final int TYPE_TXT = 8;
+    public static final int TYPE_XLS = 9;
+    public static final int TYPE_PDF = 10;
+    public static final int TYPE_WORD = 11;
+    public static final int TYPE_PPT = 12;
 
 
-    @DatabaseField(generatedId = true)
-    private int id;
     @DatabaseField
     private String name;//名称
-    @DatabaseField
+    @DatabaseField(id = true)
     private String path;//路径
     @DatabaseField
-    private String searchInfo ;
+    private String searchInfo;
     @DatabaseField
     private String noSearchInfo;
     @DatabaseField
     private int type;//类型
+    @DatabaseField
+    private int count;
 
     //空的构造方法
     public FileInfo() {
     }
 
-    public FileInfo( String name, String path, String searchInfo, String noSearchInfo, int type) {
+    public FileInfo(String name, String path, String searchInfo, String noSearchInfo, int type, int count) {
+        this.name = name;
+        this.path = path;
+        this.searchInfo = searchInfo;
+        this.noSearchInfo = noSearchInfo;
+        this.type = type;
+        this.count = count;
+    }
+    public FileInfo(String name, String path, String searchInfo, String noSearchInfo, int type) {
         this.name = name;
         this.path = path;
         this.searchInfo = searchInfo;
@@ -55,22 +61,15 @@ public class FileInfo {
     @Override
     public String toString() {
         return "fileInfo{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", path='" + path + '\'' +
                 ", searchInfo='" + searchInfo + '\'' +
                 ", noSearchInfo='" + noSearchInfo + '\'' +
-                ", type=" + type +
+                ", type=" + type + '\'' +
+                ", count=" + count +
                 '}';
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -110,5 +109,17 @@ public class FileInfo {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public void addCount() {
+        this.count = this.count + 1;
     }
 }

@@ -22,14 +22,10 @@ public class OpenUtils {
         switch (type) {
             case FileInfo.TYPE_APP:
                 return getAppFileIntent(context, filePath);
-            case FileInfo.TYPE_ARCHIVE:
-                return getZipFileIntent(filePath);
             case FileInfo.TYPE_AUDIO:
                 return getAudioFileIntent(filePath);
             case FileInfo.TYPE_CONTACT:
                 return getContactFileIntent(filePath);
-            case FileInfo.TYPE_HTML:
-                return getHtmlFileIntent(filePath);
             case FileInfo.TYPE_IMAGE:
                 return getImageFileIntent(filePath);
             case FileInfo.TYPE_INSTALL:
@@ -116,15 +112,6 @@ public class OpenUtils {
         return intent;
     }
 
-    //Android获取一个用于打开Html文件的intent
-    public static Intent getHtmlFileIntent(String param) {
-        Uri uri = Uri.parse(param).buildUpon().encodedAuthority("com.android.htmlfileprovider").scheme("content").encodedPath(param).build();
-        Intent intent = new Intent("android.intent.action.VIEW");
-        intent.setDataAndType(uri, "text/html");
-        return intent;
-    }
-
-
     //Android获取一个用于打开PPT文件的intent
     public static Intent getPptFileIntent(String param) {
         Intent intent = new Intent("android.intent.action.VIEW");
@@ -155,7 +142,6 @@ public class OpenUtils {
         return intent;
     }
 
-
     //Android获取一个用于打开文本文件的intent
     public static Intent getTextFileIntent(String param, boolean paramBoolean) {
         Intent intent = new Intent("android.intent.action.VIEW");
@@ -178,16 +164,6 @@ public class OpenUtils {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Uri uri = Uri.fromFile(new File(param));
         intent.setDataAndType(uri, "application/pdf");
-        return intent;
-    }
-
-    //Android获取一个用于打开PDF文件的intent
-    public static Intent getZipFileIntent(String param) {
-        Intent intent = new Intent();
-        intent.setClassName("com.rarlab.rar", "com.rarlab.rar.MainActivity");
-        File file = new File(param);
-        Uri data = Uri.fromFile(file);
-        intent.setData(data);
         return intent;
     }
 

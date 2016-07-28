@@ -6,4 +6,11 @@
     <color name="colorGray">#f1f1f1</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="home_bar_text_normal">#6a6c6f</color>
+    <color name="home_bar_text_push">#ff5959</color>
+    <color name="transparent">#00000000</color>
+    <color name="textnormal">#ff303032</color>
+
+    <color name="btn_bg_pressed_color">#ffacac</color>
+    <color name="btn_bg_color">#ff5959</color>
 </resources>
