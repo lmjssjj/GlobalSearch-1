@@ -124,18 +124,13 @@ public class SearchUtils {
             int _id = imageCursor.getInt(0);
             String imagePath = imageCursor.getString(1);
             String name = imageCursor.getString(2);
-            String thumbnailPath = "";
-            Cursor thumbnailCursor = resolver.query(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, new String[]{MediaStore.Images.Thumbnails.IMAGE_ID, MediaStore.Images.Thumbnails.DATA}, MediaStore.Images.Thumbnails.IMAGE_ID + "=" + _id, null, null);
-            if (thumbnailCursor.moveToFirst()) {
-                thumbnailPath = thumbnailCursor.getString(1);
-            }
-            FileInfo info = new FileInfo(name, imagePath, "", thumbnailPath, FileInfo.TYPE_IMAGE);
+            FileInfo info = new FileInfo(name, imagePath, "", "", FileInfo.TYPE_IMAGE);
             imageList.add(info);
-            thumbnailCursor.close();
         }
         imageCursor.close();
         return imageList;
     }
+
 
     /**
      * 搜索结果返回所有视频
@@ -151,14 +146,8 @@ public class SearchUtils {
             int _id = videoCursor.getInt(0);
             String videoPath = videoCursor.getString(1);
             String name = videoCursor.getString(2);
-            Cursor thumbnailsCursor = resolver.query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI, new String[]{MediaStore.Video.Thumbnails.VIDEO_ID, MediaStore.Video.Thumbnails.DATA}, MediaStore.Video.Thumbnails.VIDEO_ID + "=" + _id, null, null);
-            if (thumbnailsCursor != null) {
-                thumbnailsCursor.moveToFirst();
-                String thumbnailPath = thumbnailsCursor.getString(1);
-                FileInfo info = new FileInfo(name, videoPath, "", thumbnailPath, FileInfo.TYPE_VIDEO);
-                videoList.add(info);
-                thumbnailsCursor.close();
-            }
+            FileInfo info = new FileInfo(name, videoPath, "", "", FileInfo.TYPE_VIDEO);
+            videoList.add(info);
         }
         videoCursor.close();
         return videoList;

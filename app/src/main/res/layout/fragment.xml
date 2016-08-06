@@ -16,7 +16,7 @@
         android:id="@+id/tv_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="没有找到相关内容"
+        android:text="@string/search_tip"
         android:textColor="@color/colorRed"
         android:textSize="24sp"
         android:layout_gravity="center"

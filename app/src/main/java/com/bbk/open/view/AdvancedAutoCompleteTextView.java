@@ -35,11 +35,13 @@ public class AdvancedAutoCompleteTextView extends AutoCompleteTextView {
 
     public AdvancedAutoCompleteTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.mContext = context;
         init();
     }
 
     public AdvancedAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.mContext = context;
         init();
     }
 

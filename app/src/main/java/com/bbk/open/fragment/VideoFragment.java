@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.bbk.open.Utils.FilesDao;
 import com.bbk.open.Utils.OpenUtils;
 import com.bbk.open.Utils.SearchUtils;
+import com.bbk.open.adapter.ImageAdapter;
 import com.bbk.open.adapter.MyAdapter;
 import com.bbk.open.globlesearch.R;
 import com.bbk.open.model.FileInfo;
@@ -37,8 +39,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class VideoFragment extends Fragment implements View.OnTouchListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
-    private ListView listView;
-    private MyAdapter adapter;
+    private GridView gridView;
+    private ImageAdapter adapter;
     private List<FileInfo> list = new ArrayList<>();
     private List<FileInfo> result = new ArrayList<>();
     private Context context;
@@ -57,10 +59,11 @@ public class VideoFragment extends Fragment implements View.OnTouchListener, Ada
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getContext();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                list = SearchUtils.SearchVedio(getContext());
+                list = SearchUtils.SearchVedio(context);
                 FilesDao dao = new FilesDao(context);
                 for (FileInfo info : list) {
                     dao.add(info);
@@ -73,16 +76,15 @@ public class VideoFragment extends Fragment implements View.OnTouchListener, Ada
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment, container, false);
-        listView = (ListView) view.findViewById(R.id.lv_file);
+        View view = inflater.inflate(R.layout.fragment_gridview, container, false);
+        gridView = (GridView) view.findViewById(R.id.gridView);
         tv_tip = (TextView)view.findViewById(R.id.tv_tip);
-        context = getContext();
-        adapter = new MyAdapter(context);
+        adapter = new ImageAdapter(context);
         adapter.setData(result);
-        listView.setAdapter(adapter);
-        listView.setOnTouchListener(this);
-        listView.setOnItemClickListener(this);
-        listView.setOnItemLongClickListener(this);
+        gridView.setAdapter(adapter);
+        gridView.setOnTouchListener(this);
+        gridView.setOnItemClickListener(this);
+        gridView.setOnItemLongClickListener(this);
         return view;
     }
 

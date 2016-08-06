@@ -109,18 +109,17 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, View
     private void initView() {
         viewPager = (ViewPager) findViewById(R.id.viewpage1r);
         tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tab);
-        auto_searchkey = (AdvancedAutoCompleteTextView) findViewById(R.id.tv_searchkey);
+        auto_searchkey = (AdvancedAutoCompleteTextView) findViewById(R.id.tv_search_key);
         bt_search_web = (Button) findViewById(R.id.bt_search_web);
-       // fab_hide = (FloatingActionButton)findViewById(R.id.fab);
         mParentLayout = (LinearLayout) findViewById(R.id.layout_all);
         initAutoComplete("history", auto_searchkey);
-
         menuYellow = (FloatingActionMenu) findViewById(R.id.menu_yellow);
-        fabHide = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab1);
+        fabHide = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab_hide);
         fabScan = (com.github.clans.fab.FloatingActionButton) findViewById(R.id.fab_scan);
     }
 
     private void init() {
+        auto_searchkey.setBackgroundResource(R.drawable.shape);
         viewPager.setOffscreenPageLimit(8);
         adapter = new FragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
@@ -130,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, View
         tabStrip.setViewPager(viewPager);
         auto_searchkey.addTextChangedListener(this);
         bt_search_web.setOnClickListener(this);
-//        fab_hide.setOnClickListener(this);
 
         fabHide.setOnClickListener(this);
         fabScan.setOnClickListener(this);
@@ -160,10 +158,7 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, View
                 Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                 startActivity(intent);
                 break;
-//            case R.id.fab:
-//                CircularAnimUtil.startActivity(this, new Intent(this, HideActivity.class), fab_hide, R.color.fag_bg);
-//                break;
-            case R.id.fab1:
+            case R.id.fab_hide:
                 CircularAnimUtil.startActivity(this, new Intent(this, HideActivity.class), fabHide, R.color.fag_bg);
                 break;
             case R.id.fab_scan:
@@ -487,11 +482,6 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, View
         }
         result = resultBuffer.toString();
         auto_searchkey.append(resultBuffer);
-//        tvShow.setText(resultBuffer);
-//        int index=et_searchkey.getSelectionStart();   //获取Edittext光标所在位置
-//        if (!resultBuffer.equals("")) {//判断输入框不为空，执行删除
-//            et_searchkey.getText().delete(index-1,index);
-//        }
         Log.d("wjc", "EditText内容为：" + auto_searchkey.getText());
     }
 
@@ -514,12 +504,6 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, View
                     JSONArray items = words.getJSONObject(i).getJSONArray("cw");
                     JSONObject obj = items.getJSONObject(0);
                     ret.append(obj.getString("w"));
-//              如果需要多候选结果，解析数组其他字段
-//              for(int j = 0; j < items.length(); j++)
-//              {
-//                  JSONObject obj = items.getJSONObject(j);
-//                  ret.append(obj.getString("w"));
-//              }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -562,17 +546,6 @@ public class MainActivity extends AppCompatActivity implements TextWatcher, View
                 PendingIntent.FLAG_UPDATE_CURRENT);
         notifyBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFY_ID, notifyBuilder.build());
-//        NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        // 构建Notification对象
-//        Notification.Builder mBuilder = new Notification.Builder(this);
-//        mBuilder.setSmallIcon(R.drawable.search_notification).setTicker("GlobalSearch已经启动！");
-//        // 自定义RemoteViews对象
-//       RemoteViews views = new RemoteViews(getPackageName(),R.layout.layout_notification);
-//        // 给views中的按钮添加点击意图
-//        Intent intentApp = new Intent(NOTIFICATION_INTENT_APP);
-//        PendingIntent piApp = PendingIntent.getBroadcast(this, 1,
-//                intentApp, PendingIntent.FLAG_UPDATE_CURRENT);
-//        views.setOnClickPendingIntent(R.id.btn_app,piApp);
 
         //************************* 王家成 ************************//
     }

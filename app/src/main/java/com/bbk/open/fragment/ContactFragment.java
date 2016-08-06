@@ -57,10 +57,11 @@ public class ContactFragment extends Fragment implements View.OnTouchListener, A
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getContext();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                list = SearchUtils.SearchContacts(getContext());
+                list = SearchUtils.SearchContacts(context);
                 FilesDao dao = new FilesDao(context);
                 for (FileInfo info : list) {
                     dao.add(info);
@@ -76,7 +77,6 @@ public class ContactFragment extends Fragment implements View.OnTouchListener, A
         View view = inflater.inflate(R.layout.fragment, container, false);
         listView = (ListView) view.findViewById(R.id.lv_file);
         tv_tip = (TextView)view.findViewById(R.id.tv_tip);
-        context = getContext();
         adapter = new MyAdapter(context);
         adapter.setData(result);
         listView.setAdapter(adapter);

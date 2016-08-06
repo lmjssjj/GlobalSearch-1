@@ -59,9 +59,9 @@ public class ApkFragment extends Fragment implements View.OnTouchListener, Adapt
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment, container, false);
+        context = getContext();
         listView = (ListView) view.findViewById(R.id.lv_file);
         tv_tip = (TextView)view.findViewById(R.id.tv_tip);
-        context = getContext();
         adapter = new MyAdapter(context);
         adapter.setData(result);
         listView.setAdapter(adapter);
