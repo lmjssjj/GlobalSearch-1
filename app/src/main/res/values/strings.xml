@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">GlobleSearch</string>
     <string name="et_hint">全局搜索</string>
-    <string name="cacel">取消</string>
+    <string name="search_web">百度</string>
+    <string name="hideactivity_title">隐藏空间</string>
+    <string name="auto_history">历史记录</string>
 </resources>

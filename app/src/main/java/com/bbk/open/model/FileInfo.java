@@ -1,6 +1,7 @@
 package com.bbk.open.model;
 
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -23,6 +24,12 @@ public class FileInfo {
     public static final int TYPE_PDF = 10;
     public static final int TYPE_WORD = 11;
     public static final int TYPE_PPT = 12;
+    public static final int TAG_DEFAULT = 0;
+    public static final int TAG_DELETE = 1;
+    public static final int TAG_HIDE = 2;
+
+
+
 
 
     @DatabaseField
@@ -37,6 +44,8 @@ public class FileInfo {
     private int type;//类型
     @DatabaseField
     private int count;
+    @DatabaseField
+    private int tag;
 
     //空的构造方法
     public FileInfo() {
@@ -121,5 +130,13 @@ public class FileInfo {
 
     public void addCount() {
         this.count = this.count + 1;
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
+
+    public int getTag() {
+        return tag;
     }
 }

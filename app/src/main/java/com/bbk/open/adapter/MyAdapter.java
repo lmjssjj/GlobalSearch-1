@@ -72,10 +72,12 @@ public class MyAdapter extends BaseAdapter {
         }
         switch (list.get(i).getType()) {
             case FileInfo.TYPE_APP:
+            case FileInfo.TYPE_APP+100:
                 bitmap = PhotoHandle.byteToBitmap(list.get(i).getNoSearchInfo());
                 holder.ivIcon.setImageBitmap(bitmap);
                 break;
             case FileInfo.TYPE_IMAGE:
+            case FileInfo.TYPE_IMAGE+100:
                 if (list.get(i).getNoSearchInfo().equals("")) {
                     holder.ivIcon.setImageResource(R.drawable.image);
                 } else {
@@ -84,6 +86,7 @@ public class MyAdapter extends BaseAdapter {
                 }
                 break;
             case FileInfo.TYPE_VIDEO:
+            case FileInfo.TYPE_VIDEO+100:
                 if (list.get(i).getNoSearchInfo().equals("")) {
                     holder.ivIcon.setImageResource(R.drawable.video);
                 } else {
@@ -92,26 +95,33 @@ public class MyAdapter extends BaseAdapter {
                 }
                 break;
             case FileInfo.TYPE_AUDIO:
+            case FileInfo.TYPE_AUDIO+100:
                 holder.ivIcon.setImageResource(R.drawable.audio);
                 break;
             case FileInfo.TYPE_PDF:
+            case FileInfo.TYPE_PDF+100:
                 holder.ivIcon.setImageResource(R.drawable.pdf);
                 break;
             case FileInfo.TYPE_WORD:
+            case FileInfo.TYPE_WORD+100:
                 holder.ivIcon.setImageResource(R.drawable.doc);
                 break;
             case FileInfo.TYPE_XLS:
+            case FileInfo.TYPE_XLS+100:
                 holder.ivIcon.setImageResource(R.drawable.xls);
                 break;
             case FileInfo.TYPE_TXT:
+            case FileInfo.TYPE_TXT+100:
                 holder.ivIcon.setImageResource(R.drawable.txt);
                 break;
             case FileInfo.TYPE_CONTACT:
+            case FileInfo.TYPE_CONTACT+100:
                 int index = list.get(i).getName().indexOf("|");
                 holder.tvName.setText(list.get(i).getName().substring(0, index));
                 holder.ivIcon.setTextAndColor(list.get(i).getName().substring(0, 1), R.color.btn_bg_pressed_color);
                 break;
             case FileInfo.TYPE_SMS:
+            case FileInfo.TYPE_SMS+100:
                 holder.ivIcon.setImageResource(R.drawable.sms);
                 break;
             default:

@@ -33,14 +33,14 @@ public class FilesDao {
     }
 
     /**
-     * 增加一个用户
+     * 增加一个文件
      * @param file
      */
     public void add(FileInfo file)
     {
         try
         {
-            userDaoOpe.create(file);
+            userDaoOpe.createIfNotExists(file);
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -55,6 +55,14 @@ public class FilesDao {
         List<FileInfo> files=new ArrayList<FileInfo>();
         QueryBuilder builder = userDaoOpe.queryBuilder();
         builder.orderBy("count",false).where().like("name","%"+key+"%").or().like("searchInfo","%"+key+"%").and().eq("type",type);
+        files=builder.query();
+        return files;
+    }
+
+    public List<FileInfo> qurryHideFiles() throws SQLException {
+        List<FileInfo> files=new ArrayList<FileInfo>();
+        QueryBuilder builder = userDaoOpe.queryBuilder();
+        builder.orderBy("type",true).where().eq("tag",2);
         files=builder.query();
         return files;
     }
@@ -75,6 +83,7 @@ public class FilesDao {
             e.printStackTrace();
         }
     }
+
 
 
 }

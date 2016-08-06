@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.bbk.open.model.FileInfo;
 
@@ -19,6 +20,12 @@ public class OpenUtils {
 
 
     public static Intent openFile(int type, String filePath, Context context) {
+        if (type>3){
+            File file = new File(filePath);
+            if (!file.exists()){
+                return null;
+            }
+        }
         switch (type) {
             case FileInfo.TYPE_APP:
                 return getAppFileIntent(context, filePath);
